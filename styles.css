@@ -1,0 +1,240 @@
+@font-face {
+  font-family: 'Geomanist Black';
+  src: url('./fonts/geomanist-black-webfont.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Technology';
+  src: url('./fonts/Technology.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: oklch(0.04 0.01 210);
+  --panel: oklch(0.06 0.01 210 / 90%);
+  --panel-strong: oklch(0.07 0.01 210 / 96%);
+  --text: oklch(0.95 0.01 110);
+  --muted: oklch(0.66 0.08 110);
+  --accent: oklch(0.72 0.18 110);
+  --accent-2: oklch(0.52 0.16 110);
+  --accent-3: oklch(0.84 0.14 110);
+  --danger: oklch(0.68 0.2 25);
+  --font-heading: 'Geomanist Black', 'Arial Black', sans-serif;
+  --font-number: 'Technology', 'Digital-7 Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, color-mix(in srgb, var(--accent) 16%, transparent), transparent 40%), var(--bg);
+  color: var(--text);
+  font-family: var(--font-heading);
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 80%, var(--accent-2)), var(--bg));
+}
+
+.hud {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.2rem 1.5rem;
+  pointer-events: none;
+}
+
+.hud h1,
+.hud .eyebrow {
+  margin: 0;
+  font-family: var(--font-heading);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hud h1 {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  color: var(--accent-3);
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.hud-stats {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.stat-card {
+  min-width: 86px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel-strong) 86%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--bg) 30%, transparent);
+}
+
+.stat-card .label {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.16em;
+}
+
+.stat-card strong {
+  font-family: var(--font-number);
+  font-size: 1.2rem;
+  color: var(--accent-3);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgb(3 6 7 / 70%);
+  backdrop-filter: blur(8px);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.panel {
+  width: min(520px, 100%);
+  padding: 1.5rem;
+  border-radius: 24px;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  background: var(--panel);
+  box-shadow: 0 20px 60px color-mix(in srgb, var(--bg) 45%, transparent);
+}
+
+.panel h2,
+.leaderboard-card h3 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-heading);
+  color: var(--accent-3);
+}
+
+.panel p {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+}
+
+input {
+  padding: 0.72rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  background: var(--panel-strong);
+  color: var(--text);
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--bg);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+button.secondary {
+  background: rgb(255 255 255 / 8%);
+  color: var(--text);
+}
+
+.actions {
+  margin-top: 0.85rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.leaderboard-card {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+#leaderboardList {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--text);
+}
+
+.status-message {
+  position: absolute;
+  left: 50%;
+  bottom: 1.2rem;
+  z-index: 5;
+  transform: translateX(-50%);
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  color: var(--accent-3);
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.status-message.visible {
+  opacity: 1;
+}

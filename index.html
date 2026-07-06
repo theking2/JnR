@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Runner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hud">
+        <div>
+          <p class="eyebrow">Jump & Run</p>
+          <h1>Neon Runner</h1>
+        </div>
+        <div class="hud-stats">
+          <div class="stat-card">
+            <span class="label">Level</span>
+            <strong id="levelDisplay">1</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Score</span>
+            <strong id="scoreDisplay">0</strong>
+          </div>
+        </div>
+      </header>
+
+      <canvas id="gameCanvas"></canvas>
+
+      <div id="overlay" class="overlay active">
+        <div class="panel">
+          <h2>Enter your run</h2>
+          <p>Use arrows or A/D to move and jump through three neon levels.</p>
+
+          <form id="playerForm">
+            <label>
+              First name
+              <input id="firstName" name="firstName" required />
+            </label>
+            <label>
+              Last name
+              <input id="lastName" name="lastName" required />
+            </label>
+            <label>
+              Email
+              <input id="email" name="email" type="email" required />
+            </label>
+            <button type="submit">Start run</button>
+          </form>
+
+          <div class="actions">
+            <button id="fullscreenButton" class="secondary">Fullscreen</button>
+          </div>
+
+          <div class="leaderboard-card">
+            <h3>Highscores</h3>
+            <ol id="leaderboardList"></ol>
+          </div>
+        </div>
+      </div>
+
+      <div id="statusMessage" class="status-message" aria-live="polite"></div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
