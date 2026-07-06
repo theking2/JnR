@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($firstName === '' || $lastName === '' || $email === '' || $score <= 0) {
         http_response_code(400);
-        echo json_encode(['error' => 'Invalid payload']);
+        echo json_encode(['error' => 'Ungültige Daten']);
         exit;
     }
 
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($existingStmt->fetchColumn()) {
         http_response_code(409);
-        echo json_encode(['error' => 'This email address has already been used for a completed game.']);
+        echo json_encode(['error' => 'Diese E-Mail-Adresse wurde bereits für einen abgeschlossenen Lauf verwendet.']);
         exit;
     }
 
@@ -80,4 +80,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 http_response_code(405);
-echo json_encode(['error' => 'Method not allowed']);
+echo json_encode(['error' => 'Methode nicht erlaubt']);

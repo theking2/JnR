@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,7 @@
     <div class="app-shell">
       <header class="hud">
         <div>
-          <p class="eyebrow">Jump & Run</p>
+          <p class="eyebrow">Sprung & Lauf</p>
           <h1>Neon Runner</h1>
         </div>
         <div class="hud-stats">
@@ -19,7 +19,7 @@
             <strong id="levelDisplay">1</strong>
           </div>
           <div class="stat-card">
-            <span class="label">Score</span>
+            <span class="label">Punktzahl</span>
             <strong id="scoreDisplay">0</strong>
           </div>
         </div>
@@ -29,33 +29,33 @@
 
       <div id="overlay" class="overlay active">
         <div class="panel">
-          <h2>Enter your run</h2>
-          <p>Use arrows or A/D to move and jump through three neon levels.</p>
+          <h2>Starte deinen Lauf</h2>
+          <p>Nutze die Pfeiltasten oder A/D, um dich zu bewegen und durch drei neonfarbene Levels zu springen.</p>
 
           <form id="playerForm">
             <label>
-              First name
+              Vorname
               <input id="firstName" name="firstName" required />
             </label>
             <label>
-              Last name
+              Nachname
               <input id="lastName" name="lastName" required />
             </label>
             <label>
-              Email
+              E-Mail
               <input id="email" name="email" type="email" required />
             </label>
-            <button type="submit">Start run</button>
+            <button type="submit">Rennen starten</button>
           </form>
 
           <div class="actions">
-            <button id="fullscreenButton" class="secondary">Fullscreen</button>
+            <button id="fullscreenButton" class="secondary">Vollbild</button>
           </div>
 
           <div class="leaderboard-card">
-            <h3>Highscores</h3>
+            <h3>Bestenliste</h3>
             <ol id="leaderboardList"></ol>
-            <p style="margin-top: 0.6rem;"><a class="nav-link" href="leaderboard.html">Open full leaderboard</a></p>
+            <p style="margin-top: 0.6rem;"><a class="nav-link" href="leaderboard.html">Zur vollständigen Bestenliste</a></p>
           </div>
         </div>
       </div>

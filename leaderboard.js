@@ -27,7 +27,7 @@ function syncLeaderboard(entries) {
 
   if (!entries.length) {
     if (currentChildren.length !== 1 || currentChildren[0].className !== 'empty-state') {
-      leaderboardList.innerHTML = '<li class="empty-state">No runs recorded yet.</li>';
+      leaderboardList.innerHTML = '<li class="empty-state">Noch keine Durchläufe vorhanden.</li>';
     }
     previousEntries = [];
     return;

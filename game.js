@@ -175,7 +175,7 @@ async function startGame() {
   const email = emailInput.value.trim();
 
   if (!firstName || !lastName || !email) {
-    showMessage('Please complete your name and email first.');
+    showMessage('Bitte geben Sie Vorname, Nachname und E-Mail ein.');
     return;
   }
 
@@ -195,11 +195,11 @@ async function startGame() {
     const data = await response.json();
 
     if (!response.ok) {
-      showMessage(data.error || 'This email address is already enrolled.');
+      showMessage(data.error || 'Diese E-Mail-Adresse ist bereits für einen Lauf registriert.');
       return;
     }
   } catch (error) {
-    showMessage('Could not check enrollment.');
+    showMessage('Die Anmeldung konnte nicht geprüft werden.');
     return;
   }
 
@@ -212,7 +212,7 @@ async function startGame() {
 
   state.running = true;
   overlay.classList.remove('active');
-  showMessage('Run started. Reach the green portal to clear the level.');
+  showMessage('Lauf gestartet. Erreiche das grüne Portal, um das Level zu schaffen.');
   state.animationFrameId = requestAnimationFrame(loop);
 }
 
@@ -301,7 +301,7 @@ function update(delta) {
 
   for (const hazard of level.hazards) {
     if (player.x + player.width > hazard.x && player.x < hazard.x + hazard.w && player.y + player.height > hazard.y && player.y < hazard.y + hazard.h) {
-      endGame('The neon spike caught you.');
+      endGame('Die Neonstacheln haben dich erwischt.');
       return;
     }
   }
@@ -326,10 +326,10 @@ function advanceLevel() {
     state.player.y = 620;
     state.cameraX = 0;
     addScore(900);
-    showMessage(`Level ${state.levelIndex + 1} incoming.`);
+    showMessage(`Level ${state.levelIndex + 1} kommt.`);
     return;
   }
-  endGame('All three levels cleared.');
+  endGame('Alle drei Level gemeistert.');
 }
 
 function endGame(message) {
@@ -357,7 +357,7 @@ function submitScore() {
   })
     .then((response) => response.json())
     .then(() => loadLeaderboard())
-    .catch(() => showMessage('Score could not be stored right now.'));
+    .catch(() => showMessage('Die Punktzahl konnte gerade nicht gespeichert werden.'));
 }
 
 async function loadLeaderboard() {
@@ -366,7 +366,7 @@ async function loadLeaderboard() {
     const data = await response.json();
     leaderboardList.innerHTML = '';
     if (!data.entries || !data.entries.length) {
-      leaderboardList.innerHTML = '<li>No scores yet.</li>';
+      leaderboardList.innerHTML = '<li>Noch keine Durchläufe vorhanden.</li>';
       return;
     }
     data.entries.slice(0, 8).forEach((entry, index) => {
