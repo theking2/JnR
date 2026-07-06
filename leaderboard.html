@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboards | Neon Runner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell leaderboard-page">
+      <header class="hud leaderboard-header">
+        <div>
+          <p class="eyebrow">Highscore board</p>
+          <h1>Top 10 Runs</h1>
+        </div>
+        <a class="nav-link" href="index.html">Back to game</a>
+      </header>
+
+      <main class="leaderboard-screen">
+        <section class="leaderboard-card large-card">
+          <div class="leaderboard-title-row">
+            <h2>Hall of Fame</h2>
+            <p>Updated live from the SQLite API.</p>
+          </div>
+          <ol id="leaderboardList" class="leaderboard-list animated"></ol>
+        </section>
+      </main>
+    </div>
+
+    <script src="leaderboard.js"></script>
+  </body>
+</html>
