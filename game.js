@@ -23,6 +23,7 @@ const state = {
   cameraX: 0,
   keys: {},
   playerData: null,
+  animationFrameId: null,
 };
 
 const levels = [
@@ -138,6 +139,36 @@ function createPlayer() {
   };
 }
 
+function resetLevelCoins() {
+  levels.forEach((level) => {
+    level.coins.forEach((coin) => {
+      coin.collected = false;
+    });
+  });
+}
+
+function resetGameState() {
+  if (state.animationFrameId) {
+    cancelAnimationFrame(state.animationFrameId);
+    state.animationFrameId = null;
+  }
+
+  state.running = false;
+  state.gameOver = false;
+  state.levelIndex = 0;
+  state.score = 0;
+  state.coins = 0;
+  state.lastTime = 0;
+  state.keys = {};
+  state.player = createPlayer();
+  state.level = levels[0];
+  state.cameraX = 0;
+  state.playerData = null;
+  resetLevelCoins();
+  scoreDisplay.textContent = '0';
+  levelDisplay.textContent = '1';
+}
+
 async function startGame() {
   const firstName = firstNameInput.value.trim();
   const lastName = lastNameInput.value.trim();
@@ -172,23 +203,17 @@ async function startGame() {
     return;
   }
 
+  resetGameState();
+
   localStorage.setItem('neonRunner:firstName', firstName);
   localStorage.setItem('neonRunner:lastName', lastName);
   localStorage.setItem('neonRunner:email', email);
   state.playerData = { firstName, lastName, email };
 
   state.running = true;
-  state.gameOver = false;
-  state.levelIndex = 0;
-  state.score = 0;
-  state.coins = 0;
-  state.lastTime = 0;
-  state.player = createPlayer();
-  state.level = levels[0];
-  state.cameraX = 0;
   overlay.classList.remove('active');
   showMessage('Run started. Reach the green portal to clear the level.');
-  requestAnimationFrame(loop);
+  state.animationFrameId = requestAnimationFrame(loop);
 }
 
 function loop(timestamp) {
@@ -197,7 +222,7 @@ function loop(timestamp) {
   state.lastTime = timestamp;
   update(delta);
   render();
-  requestAnimationFrame(loop);
+  state.animationFrameId = requestAnimationFrame(loop);
 }
 
 function update(delta) {
