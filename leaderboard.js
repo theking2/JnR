@@ -2,11 +2,16 @@ const leaderboardList = document.getElementById('leaderboardList');
 let previousSnapshot = '';
 
 function renderEntries(entries) {
+  const previousEntries = previousSnapshot === '__empty__'
+    ? []
+    : JSON.parse(previousSnapshot || '[]');
+
   return entries
     .map((entry, index) => {
       const initials = `${entry.first_name?.charAt(0) || ''}${entry.last_name?.charAt(0) || ''}`.toUpperCase();
+      const isNew = !previousEntries.some((prev) => prev.email === entry.email && prev.score === entry.score && prev.first_name === entry.first_name && prev.last_name === entry.last_name);
       return `
-        <li class="leaderboard-item" style="animation-delay:${index * 70}ms">
+        <li class="leaderboard-item ${isNew ? 'is-new' : ''}" style="animation-delay:${index * 70}ms">
           <div class="leaderboard-rank">#${index + 1}</div>
           <div class="leaderboard-player">
             <div class="leaderboard-avatar">${initials}</div>
