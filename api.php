@@ -62,6 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    if (!empty($payload['preview'])) {
+        echo json_encode(['ok' => true]);
+        exit;
+    }
+
     $stmt = $pdo->prepare('INSERT INTO leaderboard (first_name, last_name, email, score) VALUES (:first_name, :last_name, :email, :score)');
     $stmt->execute([
         ':first_name' => $firstName,

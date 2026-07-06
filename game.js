@@ -138,13 +138,37 @@ function createPlayer() {
   };
 }
 
-function startGame() {
+async function startGame() {
   const firstName = firstNameInput.value.trim();
   const lastName = lastNameInput.value.trim();
   const email = emailInput.value.trim();
 
   if (!firstName || !lastName || !email) {
     showMessage('Please complete your name and email first.');
+    return;
+  }
+
+  try {
+    const response = await fetch('api.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        score: 1,
+        preview: true,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showMessage(data.error || 'This email address is already enrolled.');
+      return;
+    }
+  } catch (error) {
+    showMessage('Could not check enrollment.');
     return;
   }
 
