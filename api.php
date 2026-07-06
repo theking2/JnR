@@ -53,26 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $countStmt = $pdo->prepare('SELECT COUNT(*) FROM leaderboard WHERE email = :email');
-    $countStmt->execute([':email' => $email]);
-    $count = (int)$countStmt->fetchColumn();
-
-    if ($count >= 3) {
-        http_response_code(409);
-        echo json_encode(['error' => 'You already have three rounds recorded for this email.']);
-        exit;
-    }
-
-    $existingStmt = $pdo->prepare('SELECT id FROM leaderboard WHERE email = :email AND LOWER(first_name) = LOWER(:first_name) AND LOWER(last_name) = LOWER(:last_name) ORDER BY created_at DESC LIMIT 1');
-    $existingStmt->execute([
-        ':email' => $email,
-        ':first_name' => $firstName,
-        ':last_name' => $lastName,
-    ]);
+    $existingStmt = $pdo->prepare('SELECT id FROM leaderboard WHERE email = :email LIMIT 1');
+    $existingStmt->execute([':email' => $email]);
 
     if ($existingStmt->fetchColumn()) {
         http_response_code(409);
-        echo json_encode(['error' => 'This player already has a recorded run for this email.']);
+        echo json_encode(['error' => 'This email address has already been used for a completed game.']);
         exit;
     }
 
