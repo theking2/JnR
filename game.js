@@ -26,9 +26,16 @@ const state = {
   animationFrameId: null,
 };
 
+const difficulty = {
+  moveSpeed: 4.8,
+  jumpVelocity: -11.2,
+  gravity: 0.39,
+  movementScale: 1.25,
+};
+
 const levels = [
   {
-    goalX: 3300,
+    goalX: 3380,
     platforms: [
       { x: 0, y: 760, w: 4200, h: 80 },
       { x: 240, y: 610, w: 220, h: 26 },
@@ -41,6 +48,7 @@ const levels = [
     ],
     hazards: [
       { x: 760, y: 734, w: 46, h: 26 },
+      { x: 1120, y: 734, w: 46, h: 26 },
       { x: 1450, y: 734, w: 46, h: 26 },
     ],
     coins: [
@@ -53,7 +61,7 @@ const levels = [
     ],
   },
   {
-    goalX: 3600,
+    goalX: 3680,
     platforms: [
       { x: 0, y: 760, w: 4200, h: 80 },
       { x: 300, y: 650, w: 180, h: 24 },
@@ -68,6 +76,7 @@ const levels = [
     hazards: [
       { x: 560, y: 734, w: 44, h: 26 },
       { x: 1220, y: 734, w: 44, h: 26 },
+      { x: 1660, y: 734, w: 44, h: 26 },
       { x: 1980, y: 734, w: 44, h: 26 },
     ],
     coins: [
@@ -82,7 +91,7 @@ const levels = [
     ],
   },
   {
-    goalX: 3900,
+    goalX: 3980,
     platforms: [
       { x: 0, y: 760, w: 4200, h: 80 },
       { x: 220, y: 640, w: 180, h: 24 },
@@ -230,20 +239,20 @@ function update(delta) {
   const level = state.level;
 
   const move = (state.keys['ArrowRight'] || state.keys['d'] || state.keys['D'] ? 1 : 0) - (state.keys['ArrowLeft'] || state.keys['a'] || state.keys['A'] ? 1 : 0);
-  const speed = 5.4 * delta;
+  const speed = difficulty.moveSpeed * delta;
   player.vx = move * speed;
   if (move !== 0) player.facing = move;
 
   if ((state.keys['ArrowUp'] || state.keys['w'] || state.keys['W'] || state.keys[' '] || state.keys['Spacebar']) && player.onGround) {
-    player.vy = -11.8;
+    player.vy = difficulty.jumpVelocity;
     player.onGround = false;
   }
 
-  player.vy += 0.35 * delta;
+  player.vy += difficulty.gravity * delta;
   const prevX = player.x;
   const prevY = player.y;
-  player.x += player.vx * 1.2;
-  player.y += player.vy * 1.2;
+  player.x += player.vx * difficulty.movementScale;
+  player.y += player.vy * difficulty.movementScale;
 
   const groundY = 760;
   player.onGround = false;
